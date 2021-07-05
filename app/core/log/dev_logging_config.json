@@ -1,0 +1,11 @@
+{
+    "logger": {
+      "path": "./app/core/log/logs_files/dev.log",
+      "filename": "dev.log",
+      "level": "debug",
+      "rotation": "5 days",
+      "retention": "1 months",
+      "format": "<u><blue>[LOGURU]</blue></u>  <level>{level: <8}</level> <green>{time:YYYY-MM-DD HH:mm:ss.SSS}</green> request id: {extra[request_id]} - <cyan>{name}</cyan>:<cyan>{function}</cyan> - <level>{message}</level>"
+  
+    }
+  }

@@ -1,0 +1,12 @@
+
+{
+    "logger": {
+      "path": "./app/core/log/pro.log",
+      "filename": "pro.log",
+      "level": "error",
+      "rotation": "20 days",
+      "retention": "1 months",
+      "format": "<level>{level: <8}</level> <green>{time:YYYY-MM-DD HH:mm:ss.SSS}</green> request id: {extra[request_id]} - <cyan>{name}</cyan>:<cyan>{function}</cyan> - <level>{message}</level>"
+  
+    }
+  }

@@ -1,0 +1,7 @@
+JOURNAL_404 = "journal_404"
+PAGE_404 = "page_404"
+CHALLENGE_404 = "challenge_404"
+USER_404 = "user_404"
+REWARD_404 = "reward_404"
+STORY_404 = "story_404"
+OWNER_AUTH = "auth_403"
