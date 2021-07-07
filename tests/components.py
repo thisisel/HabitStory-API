@@ -8,7 +8,7 @@ from typing import List
 
 from tortoise.backends.base.client import BaseDBAsyncClient
 
-from app.db.models import UserModel, JournalModel, ChallengeModel, StoryReward, PageModel
+from app.db.models import RewardModel, UserModel, JournalModel, ChallengeModel, StoryReward, PageModel
 from app.main import create_app
 
 from fastapi import APIRouter
@@ -64,27 +64,3 @@ login_headers = {
     "Content-Type": "application/x-www-form-urlencoded",
     "accept": "application/json",
 }
-
-
-def get_users() -> List[UserModel]:
-
-    user_1 = UserModel(
-        id=uuid.uuid4(),
-        email="harry.potter@hogwarts.wiz",
-        hashed_password=get_password_hash("expectopatronum"),
-        username="boy_who_lived",
-    )
-    user_2 = UserModel(
-        id=uuid.uuid4(),
-        email="ron.weasley@hogwarts.wiz",
-        hashed_password=get_password_hash("vickycram"),
-        username="the_king",
-    )
-    user_3 = UserModel(
-        id=uuid.uuid4(),
-        email="albus_dumbeldore@hogwarts.wiz",
-        hashed_password=get_password_hash("mambojambo"),
-        username="golden_phoenix",
-    )
-
-    return [user_1, user_2, user_3]
