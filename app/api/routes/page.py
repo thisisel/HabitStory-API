@@ -18,8 +18,7 @@ from fastapi.routing import APIRouter
 from fastapi_pagination.default import Page, Params
 from fastapi_pagination.paginator import paginate
 
-from ..dependencies import current_active_user
-from .query_params import PageFilters
+from .dependencies import PageFilters, current_active_user
 
 router = APIRouter()
 

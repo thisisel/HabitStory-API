@@ -20,7 +20,7 @@ from fastapi_pagination.default import Page, Params
 from fastapi_pagination.paginator import paginate
 
 from app.core.log.current_logger import CurrentLogger
-from ...dependencies import current_active_user, journals_filters
+from ..dependencies import current_active_user, PersonalJournalFilters
 
 router = APIRouter()
 router.include_router(page.router, tags=["page"])
@@ -36,7 +36,8 @@ router.include_router(page.router, tags=["page"])
     tags=["journal"],
 )
 async def retrive_personal_journals(
-    q_filters=Depends(journals_filters),
+    # q_filters=Depends(journals_filters),
+    q_filters : PersonalJournalFilters = Depends(),
     user: UserDB = Depends(current_active_user),
     params: Params = Depends(),
 ):
