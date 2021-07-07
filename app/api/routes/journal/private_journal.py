@@ -29,7 +29,7 @@ router.include_router(page.router, tags=["page"])
 # TODO show chears and remaining days
 # TODO replace q func dep with q class dep
 @router.get(
-    "/",
+    "",
     responses={
         200: {"model": Page[PrivateJournal_Pydantic]},
     },
@@ -49,7 +49,7 @@ async def retrive_personal_journals(
 
 # TODO transaction
 @router.post(
-    "/",
+    "",
     status_code=201,
     response_description="New Challenge started, Journal instanciated",
     responses={201: {"model": NewJournalCreatedResponse}},
