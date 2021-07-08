@@ -17,9 +17,6 @@ from app.core.log.costum_logging import CustomizeLogger
 def create_app( setting_mode: str) -> FastAPI:
 
     app_setting = setting_by_name[setting_mode]
-    
-    # TODO move up
-    # from app.core.security.auth import UsersAuth 
 
     app = FastAPI(title=PROJECT_NAME, debug=app_setting.debug, version=VERSION)
     
@@ -29,23 +26,7 @@ def create_app( setting_mode: str) -> FastAPI:
     _add_exception_handler(app)
     _include_routes(app)
 
-
-    # from app.api.routes.api import router as api_root_router
     app.add_api_route("/", _get_index(app_setting.debug), tags=["index"])
-    # app.include_router(api_root_router, prefix=API_PREFIX)
-    
-
-    # fastapi_users = UsersAuth.get_fastapiusers()
-    # app.include_router(
-    #     fastapi_users.get_auth_router(UsersAuth.jwt_authentication),
-    #     prefix="/auth/jwt",
-    #     tags=["auth"],
-    # )
-    # app.include_router(
-    #     fastapi_users.get_register_router(),
-    #     prefix="/auth",
-    #     tags=["auth"],
-    # ) 
 
     return app
 
