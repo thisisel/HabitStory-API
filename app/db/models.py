@@ -44,6 +44,7 @@ class StoryReward(RewardModel):
     content = fields.TextField()
     word_count = fields.IntField(null=True, index=True)
 
+    pieces: fields.ReverseRelation["StoryPieceModel"]
     class Meta:
         app = "models"
         table = "stories"
@@ -51,6 +52,24 @@ class StoryReward(RewardModel):
     class PydanticMeta:
         exclude=("content",)
 
+
+class StoryPieceModel(models.Model):
+   
+    id = fields.IntField(pk=True)
+    content = fields.TextField(null=False)
+    word_count = fields.IntField(null=False)
+    piece_num = fields.IntField(null=False, index=True)
+
+
+    story: fields.ForeignKeyRelation[StoryReward] = fields.ForeignKeyField(
+        "models.StoryReward", related_name="pieces", on_delete=CASCADE
+    ) 
+    class Meta:
+        app = "models"
+        table = "story_pieces"
+        unique_together = ("id", "piece_num",)
+        ordering = ["story_id", "piece_num"]
+        
 
 class ChallengeModel(models.Model):
 
