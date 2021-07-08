@@ -3,16 +3,9 @@
 """
 
 
-import uuid
-from typing import List
-
-from tortoise.backends.base.client import BaseDBAsyncClient
-
-from app.db.models import RewardModel, UserModel, JournalModel, ChallengeModel, StoryReward, PageModel
 from app.main import create_app
 
 from fastapi import APIRouter
-from fastapi_users.password import get_password_hash
 
 
 def get_testing_app():
