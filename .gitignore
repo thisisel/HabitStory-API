@@ -147,3 +147,4 @@ dmypy.json
 app/db/dev.sqlite
 app/db/dev.sqlite-shm
 app/db/dev.sqlite-wal
+scratch_pad.py
