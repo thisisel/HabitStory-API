@@ -41,7 +41,6 @@ def seed_rewards_db() -> StoryReward:
         author="test author",
         title="test title",
         tag="story",
-        content="this is a test content. The End",
         word_count=31,
     )
     return story

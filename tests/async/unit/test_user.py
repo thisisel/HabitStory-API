@@ -1,5 +1,5 @@
 import pytest
-from app.db.models import UserModel
+from ..utils import UserModel
 
 @pytest.mark.asyncio
 async def test_get_user(): 

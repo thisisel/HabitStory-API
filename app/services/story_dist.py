@@ -28,3 +28,9 @@ async def get_story_piece(journal_id: int, page_num: int):
     piece_size = story_length / duration
     start_idx = (page_num-1)*piece_size
     
+async def cut_story_pieces(content: str):
+    
+    PIECES_SIZE = 250
+    pices = [for pices in content]
+
+

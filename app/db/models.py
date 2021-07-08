@@ -41,7 +41,6 @@ class StoryReward(RewardModel):
 
     author = fields.CharField(max_length=100)
     title = fields.CharField(max_length=100)
-    content = fields.TextField()
     word_count = fields.IntField(null=True, index=True)
 
     pieces: fields.ReverseRelation["StoryPieceModel"]
