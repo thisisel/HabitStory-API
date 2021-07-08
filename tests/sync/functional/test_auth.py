@@ -1,4 +1,4 @@
-from ..components import login_headers, testing_users
+from ...components import login_headers, testing_users
 
 
 user_1 = testing_users["user_1"]
