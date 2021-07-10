@@ -83,20 +83,11 @@ class ChallengeModel(models.Model):
     )
     participants: fields.ReverseRelation["JournalModel"]
 
-    def count_participants(self) -> int:
-        """
-        Computed total number of participants (hidden and public)
-        """
-        try:
-            return len(self.participants)
-
-        except NoValuesFetched:
-            return 0
 
     class Meta:
         app = "models"
         table = "challenges"
-    
+
 
 class JournalModel(models.Model):
 
