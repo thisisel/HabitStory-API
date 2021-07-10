@@ -5,18 +5,22 @@ from fastapi import Query, Request
 from tortoise.query_utils import Q
 
 
-class PublicJournalFilters:
+class PersonalJournalFilters:
     def __init__(
         self,
         request: Request,
         duration_gte: Optional[int] = Query(None),
         duration_lte: Optional[int] = Query(None),
         title: Optional[str] = Query(None),
+        active: Optional[bool] = Query(None),
+        is_public: Optional[bool] = Query(None),
     ):
         self._q_filters = dict(
             title=Q(challenge__title__icontains=title),
             duration_gte=Q(borrow_interval__gte=duration_gte),
             duration_lte=Q(borrow_interval__lte=duration_lte),
+            active=Q(active=active),
+            is_public=Q(is_public=is_public)
         )
 
         self.q_filters_pruned: Set[Q] = {
@@ -28,27 +32,22 @@ class PublicJournalFilters:
         CurrentLogger.get_logger().debug(self.q_filters_pruned)
 
 
-class PersonalJournalFilters(PublicJournalFilters):
+class PublicJournalFilters(PersonalJournalFilters):
     def __init__(
         self,
         request: Request,
         duration_gte: Optional[int] = Query(None),
         duration_lte: Optional[int] = Query(None),
         title: Optional[str] = Query(None),
-        active: Optional[bool] = Query(None),
-        is_public: Optional[bool] = Query(None),
     ):
         super().__init__(
             request,
             duration_gte=duration_gte,
             duration_lte=duration_lte,
             title=title,
+            active=True,
+            is_public=True
         )
-
-        # personal shelf specific
-        self._q_filters["active"] = Q(active=active)
-        self._q_filters["is_public"] = Q(is_public=is_public)
-
 
 class PageFilters:
     def __init__(
