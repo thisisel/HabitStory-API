@@ -1,4 +1,4 @@
-from app.schemas.common_models import ApiBaseResponse
+from app.schemas.journal import JournalBase_Pydantic, UpdateJournal_Pydantic
 from app.core.log.current_logger import CurrentLogger
 from app.api.errors import NotFound, REWARD_404, internal_error
 from typing import Set
@@ -12,8 +12,6 @@ from app.db.models import (
     StoryReward,
     RewardModel,
 )
-from fastapi.encoders import jsonable_encoder
-
 
 class RetriveJournal:
     @classmethod
@@ -38,6 +36,7 @@ class RetriveJournal:
             CurrentLogger.get_logger().error(ke)
             raise internal_error()
 
+    #TODO rename fetch_user_single_journal
     @classmethod
     async def fetch_single_journal(
         cls, user_id: int, journal_id: int
@@ -91,3 +90,17 @@ class CreateJournal:
             is_public=is_public,
             reward_id=reward_obj.id,
         )
+
+class UpdateJournal:
+    @classmethod
+    async def update_journal(cls, journal_obj: JournalModel, data: UpdateJournal_Pydantic) -> JournalModel:
+        
+        journal_pydantic = await JournalBase_Pydantic.from_tortoise_orm(journal_obj)
+        journal_dict = journal_pydantic.dict()
+        journal_dict.update(data.dict(exclude_unset=True))
+        await journal_obj.update_from_dict(journal_dict).save()
+
+        await journal_obj.refresh_from_db()
+
+        return  journal_obj
+

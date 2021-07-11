@@ -6,6 +6,8 @@ from pydantic import BaseModel
 from . import pydantic_model_creator
 from .common_models import ApiBaseResponse
 
+JournalBase_Pydantic = pydantic_model_creator(JournalModel, name="JournalBase", exclude_readonly=True)
+
 NewJournalModel_Pydantic = pydantic_model_creator(
     JournalModel,
     name="NewJournalCreated",
@@ -29,6 +31,10 @@ PrivateJournal_Pydantic = pydantic_model_creator(
         "pages",
         "reward",
     ),
+)
+UpdateJournal_Pydantic = pydantic_model_creator(
+    JournalModel, name="UpdateJournal",include=("active", "is_public"),
+    exclude_readonly=True
 )
 
 

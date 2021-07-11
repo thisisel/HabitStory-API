@@ -1,7 +1,7 @@
 from app.api.errors import NotFound, JOURNAL_404
 from fastapi.encoders import jsonable_encoder
 from starlette.responses import JSONResponse
-from app.crud.journal import CreateJournal, RetriveJournal
+from app.crud.journal import CreateJournal, RetriveJournal, UpdateJournal
 from app.crud.challenge import CreateChallenge
 
 from app.api.routes import page
@@ -11,6 +11,7 @@ from app.schemas.journal import (
     NewJournalModel_Pydantic,
     PrivateJournal_Pydantic,
     PrivateJournalResponse,
+    UpdateJournal_Pydantic,
 )
 from app.schemas.challenge import CreateNewChallenge
 from app.schemas.user import UserDB
@@ -37,7 +38,7 @@ router.include_router(page.router, tags=["page"])
 )
 async def retrive_personal_journals(
     # q_filters=Depends(journals_filters),
-    q_filters : PersonalJournalFilters = Depends(),
+    q_filters: PersonalJournalFilters = Depends(),
     user: UserDB = Depends(current_active_user),
     params: Params = Depends(),
 ):
@@ -125,3 +126,30 @@ async def remove_journal(
     user: UserDB = Depends(current_active_user),
 ):
     pass
+
+
+@router.patch("/{id}", 
+responses={
+    200: {"model" : PrivateJournalResponse}, 
+    404: {"model" : ApiErrorResponse}
+},
+tags=["journal"])
+async def update_journal(
+    id: int = Path(...),
+    user: UserDB = Depends(current_active_user),
+    data: UpdateJournal_Pydantic = Body(...),
+):
+    journal_qset = await RetriveJournal.fetch_single_journal(
+        user_id=user.id, journal_id=id
+    )
+
+    if (journal_obj := await journal_qset) is None:
+        raise NotFound(JOURNAL_404)
+
+    return PrivateJournalResponse(
+        status=True,
+        message="Journal updated successfully",
+        data=await PrivateJournal_Pydantic.from_tortoise_orm(
+            await UpdateJournal.update_journal(journal_obj=journal_obj, data=data)
+        )
+    )
