@@ -20,7 +20,7 @@ class PersonalJournalFilters:
             duration_gte=Q(borrow_interval__gte=duration_gte),
             duration_lte=Q(borrow_interval__lte=duration_lte),
             active=Q(active=active),
-            is_public=Q(is_public=is_public)
+            is_public=Q(is_public=is_public),
         )
 
         self.q_filters_pruned: Set[Q] = {
@@ -46,8 +46,9 @@ class PublicJournalFilters(PersonalJournalFilters):
             duration_lte=duration_lte,
             title=title,
             active=True,
-            is_public=True
+            is_public=True,
         )
+
 
 class PageFilters:
     def __init__(
@@ -59,10 +60,10 @@ class PageFilters:
         submitted_day: Optional[int] = Query(None),
     ):
         self._q_filters = dict(
-        page_num=Q(page_num=page_num),
-        submitted_year=Q(submitted__year=submitted_year),
-        submitted_month=Q(submitted__month=submitted_month),
-        submitted_day=Q(submitted__day=submitted_day),
+            page_num=Q(page_num=page_num),
+            submitted_year=Q(submitted__year=submitted_year),
+            submitted_month=Q(submitted__month=submitted_month),
+            submitted_day=Q(submitted__day=submitted_day),
         )
         self.q_filters_pruned: Set[Q] = {
             q_object
@@ -70,3 +71,22 @@ class PageFilters:
             if request.query_params.get(param) is not None
         }
 
+
+class ChallengeFilters:
+    def __init__(
+        self,
+        request: Request,
+        duration_gte: Optional[int] = Query(None),
+        duration_lte: Optional[int] = Query(None),
+    ):
+
+        self._q_filters = dict(
+            duration_gte=Q(duration__gte=duration_gte),
+            duration_lte=Q(duration__lte=duration_lte),
+        )
+
+        self.q_filters_pruned: Set[Q] = {
+            q_object
+            for param, q_object in self._q_filters.items()
+            if request.query_params.get(param) is not None
+        }
