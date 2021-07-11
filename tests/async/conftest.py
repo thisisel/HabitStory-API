@@ -1,3 +1,4 @@
+from app.db.models import ChallengeModel
 import asyncio
 import os
 
@@ -5,7 +6,7 @@ import pytest
 from httpx import AsyncClient
 from app.main import create_app
 from tortoise.contrib.test import finalizer, initializer
-from .utils import seed_rewards_db, seed_users_db
+from .utils import seed_rewards_db, seed_users_db, seed_challenges_db
 from ..components import login_headers, testing_users
 
 
@@ -33,6 +34,11 @@ async def seed_db():
     for story in stories.values():
         await story.save()
 
+    challenges = seed_challenges_db()
+    for challenge in challenges.values():
+        await challenge.save()
+    challenge_1_obj = await ChallengeModel.filter(title="Challenge 1").first()
+    challenge_1_obj.created_by = users.get("user_1")
 
 @pytest.mark.asyncio
 @pytest.fixture(scope="module")

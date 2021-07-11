@@ -48,3 +48,13 @@ def seed_rewards_db() -> Dict[str, StoryReward]:
         word_count=31,
     )
     return dict(story_1=story_1)
+
+def seed_challenges_db():
+
+    users = seed_users_db()
+    challenge_1 = ChallengeModel(
+        title="Challenge 1",
+        description="description for challenge 1",
+        duration=20,
+    )
+    return dict(challenge_1=challenge_1)
