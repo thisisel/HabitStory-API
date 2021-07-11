@@ -29,6 +29,6 @@ async def get_single_challenge(id: int = Path(...)):
 
     return SingleChallengeResponse(
         status=True,
-        message="challenge sent succ",
+        message="Challenge was sent successfully",
         challenge=await ChallengeDetail.from_tortoise_orm(challenge_obj),
     )
