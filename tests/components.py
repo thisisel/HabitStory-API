@@ -57,3 +57,10 @@ login_headers = {
     "Content-Type": "application/x-www-form-urlencoded",
     "accept": "application/json",
 }
+
+new_journal_data = {
+    "title": "string",
+    "description": "string",
+    "duration": 10,
+    "is_public": True
+}
