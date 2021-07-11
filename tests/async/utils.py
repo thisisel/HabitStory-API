@@ -1,5 +1,5 @@
 import uuid
-from typing import List
+from typing import Dict, List
 
 from app.db.models import (
     ChallengeModel,
@@ -12,7 +12,7 @@ from app.db.models import (
 from fastapi_users.password import get_password_hash
 
 
-def seed_users_db() -> List[UserModel]:
+def seed_users_db() -> Dict[str, UserModel]:
 
     user_1 = UserModel(
         id=uuid.uuid4(),
@@ -33,14 +33,18 @@ def seed_users_db() -> List[UserModel]:
         username="golden_phoenix",
     )
 
-    return [user_1, user_2, user_3]
+    return dict(
+        user_1=user_1,
+        user_2=user_2,
+        user_3=user_3
+    )
 
 
-def seed_rewards_db() -> StoryReward:
-    story = StoryReward(
+def seed_rewards_db() -> Dict[str, StoryReward]:
+    story_1 = StoryReward(
         author="test author",
         title="test title",
         tag="story",
         word_count=31,
     )
-    return story
+    return dict(story_1=story_1)

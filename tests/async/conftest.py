@@ -26,11 +26,12 @@ def tortoise_initialize_tests(request):
 @pytest.fixture(scope="module", autouse=True)
 async def seed_db():
     users = seed_users_db()
-    for u in users:
+    for u in users.values():
         await u.save()
 
-    story = seed_rewards_db()
-    await story.save()
+    stories = seed_rewards_db()
+    for story in stories.values():
+        await story.save()
 
 
 @pytest.mark.asyncio
