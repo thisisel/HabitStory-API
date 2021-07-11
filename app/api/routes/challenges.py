@@ -15,7 +15,6 @@ router = APIRouter()
 async def get_trending_challenges():
     
     challenges_qset = await RetrieveChallenge.fetch_trending_challenges()
-    challenges_obj = await challenges_qset
    
     return await ChallengeInList.from_queryset(challenges_qset)
 
