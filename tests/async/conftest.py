@@ -43,7 +43,6 @@ async def client():
 
 test_user_1 = testing_users["user_1"]
 
-
 @pytest.mark.asyncio
 @pytest.fixture(scope="module", params=[test_user_1])
 async def register_user(client, request):
@@ -60,13 +59,14 @@ async def register_user(client, request):
 
     yield
 
+user_1_db = seed_users_db().get("user_1")
 
 @pytest.mark.asyncio
 @pytest.fixture(
     scope="module",
-    params=[{"username": test_user_1["email"], "password": test_user_1["password"]}],
+    params=[{"username": user_1_db.email, "password": "expectopatronum"}],
 )
-async def logged_user_jwt(client, register_user, request):
+async def logged_user_jwt(client, request):
     response = await client.post(
         "/auth/jwt/login", data=request.param, headers=login_headers
     )
