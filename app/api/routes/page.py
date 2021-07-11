@@ -15,8 +15,7 @@ from app.schemas.page import (
 from app.schemas.user import UserDB
 from fastapi import Body, Depends, Path, Response, status
 from fastapi.routing import APIRouter
-from fastapi_pagination.default import Page, Params
-from fastapi_pagination.paginator import paginate
+from fastapi_pagination import paginate, Page, Params
 
 from .dependencies import PageFilters, current_active_user
 
