@@ -1,14 +1,9 @@
 import pytest
 from ..utils import JournalModel
+from ...components import new_journal_data
 @pytest.mark.asyncio
 async def test_create_journal(client, logged_user_jwt):
 
-    new_journal_data = {
-    "title": "string",
-    "description": "string",
-    "duration": 10,
-    "is_public": True
-    }
     response = await client.post("/api/profile/journals", json=new_journal_data, headers=logged_user_jwt)
 
     assert response.status_code == 201, response.text
