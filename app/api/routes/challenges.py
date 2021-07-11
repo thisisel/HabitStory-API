@@ -24,7 +24,13 @@ async def get_trending_challenges(
     return paginate(await ChallengeInList.from_queryset(challenges_qset), params=params)
 
 
-@router.get("/{id}")
+@router.get("/{id}", 
+    responses={
+        200: {"model": SingleChallengeResponse},
+        404: {"model": ApiErrorResponse},
+    },     
+    
+)
 async def get_single_challenge(id: int = Path(...)):
 
     challenge_qset = await RetrieveChallenge.fetch_single_challenge(id=id)
