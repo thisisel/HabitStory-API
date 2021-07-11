@@ -1,4 +1,3 @@
-from typing_extensions import Annotated
 from app.db.models import ChallengeModel
 from app.schemas.challenge import CreateNewChallenge
 from tortoise.functions import Count
