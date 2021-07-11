@@ -1,3 +1,6 @@
+from typing import Set
+
+from tortoise.query_utils import Q
 from app.db.models import ChallengeModel
 from app.schemas.challenge import CreateNewChallenge
 from tortoise.functions import Count
@@ -16,12 +19,12 @@ class CreateChallenge:
 
 class RetrieveChallenge:
     @classmethod
-    async def fetch_trending_challenges(cls):
+    async def fetch_trending_challenges(cls, q_filters: Set[Q] = None):
         return (
-            ChallengeModel.all()
-            .only("id", "title", "duration")
+            ChallengeModel.all().filter(*q_filters, join_type="AND")
+            .only("id", "title", "duration", "created_at")
             .annotate(participants_count=Count("participants"))
-            .order_by("participants_count")
+            .order_by("participants_count", "created_at")
         )
 
     @classmethod

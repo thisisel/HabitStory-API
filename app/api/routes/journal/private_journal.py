@@ -42,7 +42,7 @@ async def retrive_personal_journals(
     params: Params = Depends(),
 ):
     journals_qset = await RetriveJournal.fetch_user_journals(
-        user_id=user.id, q_filters=q_filters
+        user_id=user.id, q_filters=q_filters.q_filters_pruned
     )
 
     return paginate(await PrivateJournal_Pydantic.from_queryset(journals_qset), params)
