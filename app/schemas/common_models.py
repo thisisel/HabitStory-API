@@ -14,14 +14,6 @@ class ApiErrorResponse(BaseModel):
     message: Optional[str]
 
 
-class ApiResponseSingleData(ApiBaseResponse):
-    data: dict
-
-
-class ResponseListData(ApiBaseResponse):
-    data: List[dict]
-
-
 class CreateUpdateDictModel(BaseModel):
     def create_dict(self):
         return self.dict(
