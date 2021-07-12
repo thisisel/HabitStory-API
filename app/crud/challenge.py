@@ -24,7 +24,7 @@ class RetrieveChallenge:
             ChallengeModel.all().filter(*q_filters, join_type="AND")
             .only("id", "title", "duration", "created_at")
             .annotate(participants_count=Count("participants"))
-            .order_by("participants_count", "created_at")
+            .order_by("-participants_count", "-created_at")
         )
 
     @classmethod
