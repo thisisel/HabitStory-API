@@ -42,15 +42,15 @@ class RetrivePage:
     @classmethod
     async def fetch_all_journal_pages(cls, journal_id: int) -> QuerySet[PageModel]:
         return PageModel.filter(journal_id=journal_id).prefetch_related(
-            Prefetch(relation="journal", queryset=JournalModel.all().only("id"))
-        )
+            Prefetch(relation="journal", queryset=JournalModel.all().only("id", "author_id", "challenge_id"))
+        ).all()
 
     @classmethod
     async def fetch_filtered_journal_pages(
-        cls, journal_id: int, filters: Set[Q]
+        cls, journal_id: int, q_filters: Set[Q]
     ) -> QuerySet[PageModel]:
         all_pages_qset = await cls.fetch_all_journal_pages(journal_id=journal_id)
-        return all_pages_qset.filter(*filters, join_type="AND")
+        return all_pages_qset.filter(*q_filters, join_type="AND")
 
     @classmethod
     async def fetch_single_page(
