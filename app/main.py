@@ -8,7 +8,7 @@ from tortoise.contrib.fastapi import register_tortoise
 
 from app.api.errors import (InternalError, NotFound, http422_error_handler,
                             http_error_handler, internal_error_handler,
-                            notfound_error_handler, forbidden_error_handler, Forbidden)
+                            notfound_error_handler, forbidden_error_handler, Forbidden, notallowed_error_handler, NotAllowed)
 from app.core.config import (ALLOWED_HOSTS, API_PREFIX, FASTAPI_ENV,
                              PROJECT_NAME, VERSION, setting_by_name, logger)
 from app.core.log.costum_logging import CustomizeLogger
@@ -78,6 +78,7 @@ def _add_exception_handler(app: FastAPI):
     app.add_exception_handler(InternalError, internal_error_handler)
     app.add_exception_handler(RequestValidationError, http422_error_handler)
     app.add_exception_handler(Forbidden, forbidden_error_handler)
+    app.add_exception_handler(NotAllowed, notallowed_error_handler)
 
 
 def _include_routes(app: FastAPI):
