@@ -1,11 +1,11 @@
+from tortoise.query_utils import Q
 from app.utils.journal import evaluate_streak
 from datetime import datetime
 from app.schemas.journal import UpdateJournalAfterNewPage
-from app.api.errors.error_categories import JOURNAL_404, PAGE_404
+from app.api.errors.error_categories import PAGE_404
 from app.api.errors.not_found_error import NotFound
-from app.schemas.common_models import ApiBaseResponse, ApiErrorResponse
+from app.schemas.common_models import ApiErrorResponse
 from app.crud.journal import RetriveJournal, UpdateJournal
-from tortoise.fields import data
 from app.crud.page import CreatePage, RetrivePage
 
 from app.schemas.page import (
@@ -32,7 +32,9 @@ async def retrive_journal_pages(
     params: Params = Depends(),
     user: UserDB = Depends(current_active_user),
 ):
-    pages_qset = await RetrivePage.fetch_all_journal_pages(journal_id=id)
+    # pages_qset = await RetrivePage.fetch_all_journal_pages(journal_id=id)
+    filters = page_filters.q_filters_pruned.union({Q(journal__author=user.id)})
+    pages_qset = await RetrivePage.fetch_filtered_journal_pages(journal_id=id, q_filters=filters)
 
     return paginate(await PageInList_Pydantic.from_queryset(pages_qset), params=params)
 
