@@ -1,4 +1,4 @@
-from typing import Set
+from typing import Set, Union
 from tortoise.exceptions import DoesNotExist, MultipleObjectsReturned
 from tortoise.query_utils import Prefetch, Q
 from tortoise.queryset import QuerySet, QuerySetSingle
@@ -9,12 +9,35 @@ from app.api.errors import NotFound, InternalError, PAGE_404
 
 class RetrivePage:
     @classmethod
-    async def get_latest_page_num(cls, journal_id: int, author_id: int) -> int:
-        return await PageModel.filter(
+    async def fetch_pages_in_user_journal(
+        cls, journal_id: int, author_id: int
+    ) -> QuerySet[PageModel]:
+        return PageModel.filter(
             Q(journal_id=journal_id),
             Q(journal__author_id=author_id),
             join_type="AND",
-        ).count()
+        ).all()
+
+    @classmethod
+    async def get_page_count(cls, journal_id: int, author_id: int) -> int:
+        pages_qset = await cls.fetch_pages_in_user_journal(
+            journal_id=journal_id, author_id=author_id
+        )
+        return await pages_qset.count()
+
+    @classmethod
+    async def get_latest_page(
+        cls, journal_id: int, author_id: int
+    ) -> Union[PageModel, None]:
+
+        pages_qset = await cls.fetch_pages_in_user_journal(
+            journal_id=journal_id, author_id=author_id
+        )
+        
+        latest_page= await pages_qset.order_by("-page_num").first()
+        await latest_page.refresh_from_db()
+        
+        return latest_page
 
     @classmethod
     async def fetch_all_journal_pages(cls, journal_id: int) -> QuerySet[PageModel]:
@@ -53,7 +76,7 @@ class CreatePage:
             data_dict = data.dict(exclude_unset=True)
 
             # TODO exploit saved value for page_num in the record
-            latest_page_num = await RetrivePage.get_latest_page_num(
+            latest_page_num = await RetrivePage.get_page_count(
                 journal_id=journal_id, author_id=author_id
             )
             new_page = await PageModel.create(

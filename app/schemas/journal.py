@@ -1,4 +1,5 @@
-from typing import Union
+from datetime import datetime
+from typing import Optional, Union
 
 from app.db.models import JournalModel
 from pydantic import BaseModel
@@ -37,6 +38,10 @@ UpdateJournal_Pydantic = pydantic_model_creator(
     exclude_readonly=True
 )
 
+class UpdateJournalAfterNewPage(BaseModel):
+    streak: int
+    finished: Optional[datetime]
+    last_modified: datetime
 
 class PrivateJournalResponse(ApiBaseResponse):
     data: Union[PrivateJournal_Pydantic, NewJournalModel_Pydantic]
@@ -44,8 +49,6 @@ class PrivateJournalResponse(ApiBaseResponse):
 
 class NewJournalCreatedResponse(ApiBaseResponse):
     data: NewJournalModel_Pydantic
-
-
 
 
 
