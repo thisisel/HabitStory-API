@@ -4,6 +4,7 @@ from .internal_error import InternalError, internal_error_handler
 from .not_found_error import NotFound, notfound_error_handler
 from .forbidden_error import Forbidden, forbidden_error_handler
 from .not_allowed_error import NotAllowed, notallowed_error_handler
+from .unauthorized_error import UnAuthorized, unauthorized_error_handler
 from .error_categories import (
     USER_404,
     JOURNAL_404,
