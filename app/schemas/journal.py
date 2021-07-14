@@ -35,7 +35,7 @@ PrivateJournal_Pydantic = pydantic_model_creator(
 )
 UpdateJournal_Pydantic = pydantic_model_creator(
     JournalModel, name="UpdateJournal",include=("active", "is_public"),
-    exclude_readonly=True
+    exclude_readonly=True, computed=("count_pages",)
 )
 
 class UpdateJournalAfterNewPage(BaseModel):

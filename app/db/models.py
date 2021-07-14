@@ -135,7 +135,7 @@ class JournalModel(models.Model):
 
     #TODO move to pydantic models
     class PydanticMeta:
-        computed = ("count_pages","journal_url")
+        computed = ("journal_url",)
 
 
 class PageModel(models.Model):
