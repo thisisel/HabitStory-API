@@ -97,20 +97,16 @@ async def retrive_single_journal(
     journal_qset = await RetriveJournal.fetch_single_journal(
         user_id=user.id, journal_id=id
     )
-    CurrentLogger.get_logger().debug("BEFORE CHECK NONE")
     if not (journal := await journal_qset):
         raise NotFound(category=JOURNAL_404)
 
-    CurrentLogger.get_logger().debug("AFTER CHECK NONE")
-
-    CurrentLogger.get_logger().debug("BEFORE CONTENT")
 
     content = PrivateJournalResponse(
         status=True,
         message="Journal successfully retrived",
         data=await PrivateJournal_Pydantic.from_tortoise_orm(journal),
     )
-    CurrentLogger.get_logger().debug("AFTER CONTENT")
+    
     return JSONResponse(status_code=200, content=jsonable_encoder(content))
 
 
