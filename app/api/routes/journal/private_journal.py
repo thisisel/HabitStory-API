@@ -1,7 +1,7 @@
 from app.api.errors import NotFound, JOURNAL_404
 from fastapi.encoders import jsonable_encoder
 from starlette.responses import JSONResponse
-from app.crud.journal import CreateJournal, RetriveJournal, UpdateJournal
+from app.crud.journal import CreateJournal, DeleteJournal, RetriveJournal, UpdateJournal
 from app.crud.challenge import CreateChallenge
 
 from app.api.routes import page
@@ -15,7 +15,7 @@ from app.schemas.journal import (
 )
 from app.schemas.challenge import CreateNewChallenge
 from app.schemas.user import UserDB
-from fastapi import Body, Depends, Path
+from fastapi import Body, Depends, Path, Response
 from fastapi.routing import APIRouter
 from fastapi_pagination.default import Page, Params
 from fastapi_pagination.paginator import paginate
@@ -114,7 +114,7 @@ async def retrive_single_journal(
     return JSONResponse(status_code=200, content=jsonable_encoder(content))
 
 
-# TODO
+
 @router.delete(
     "/{id}",
     status_code=204,
@@ -125,7 +125,8 @@ async def remove_journal(
     id: int = Path(..., description="journal id"),
     user: UserDB = Depends(current_active_user),
 ):
-    pass
+    await DeleteJournal.delete_journal(journal_id=id, user_id=user.id)
+    return Response(status_code=204)
 
 
 @router.patch("/{id}", 

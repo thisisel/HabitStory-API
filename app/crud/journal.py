@@ -131,3 +131,11 @@ class UpdateJournal:
 
         return  journal_obj
 
+class DeleteJournal:
+    @classmethod
+    async def delete_journal(cls, journal_id: int, user_id: int):
+        deleted_journal = await JournalModel.filter(Q(id=journal_id) & Q(author_id=user_id)).delete()
+        if not deleted_journal:
+            raise NotFound(category=JOURNAL_404)
+        return
+
