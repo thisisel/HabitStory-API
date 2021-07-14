@@ -75,7 +75,7 @@ async def create_journal(
     content = PrivateJournalResponse(
         status=True,
         message="New Challenge started, Journal instanciated",
-        data=await NewJournalModel_Pydantic.from_tortoise_orm(await new_journal_obj),
+        data=await NewJournalModel_Pydantic.from_tortoise_orm(new_journal_obj),
     )
     return JSONResponse(status_code=201, content=jsonable_encoder(content))
 

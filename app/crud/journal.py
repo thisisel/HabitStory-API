@@ -110,7 +110,7 @@ class CreateJournal:
 
             raise NotFound(category=REWARD_404)
 
-        return JournalModel.create(
+        return await JournalModel.create(
             author_id=user_id,
             challenge_id=challenge_id,
             is_public=is_public,
