@@ -32,3 +32,7 @@ class RetrieveChallenge:
         return ChallengeModel.get_or_none(id=id).annotate(
             participants_count=Count("participants")
         )
+
+    @classmethod
+    async def challenge_exists(cls, challenge_id: int)-> bool:
+        return await ChallengeModel.filter(id=challenge_id).exists()
