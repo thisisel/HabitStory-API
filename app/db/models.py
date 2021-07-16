@@ -10,6 +10,7 @@ class UserModel(TortoiseBaseUserModel):
     username = fields.CharField(max_length=20, index=True, unique=True, null=True)
     joined_date = fields.DatetimeField(auto_now_add=True, null=False)
 
+    oauth_accounts: fields.ReverseRelation["OAuthAccountModel"]
     my_challenges: fields.ReverseRelation["ChallengeModel"]
     journals: fields.ReverseRelation["JournalModel"]
 
