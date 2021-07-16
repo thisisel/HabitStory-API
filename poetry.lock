@@ -32,7 +32,7 @@ typing_extensions = ">=3.7.2"
 name = "anyio"
 version = "3.2.0"
 description = "High level compatibility layer for multiple asynchronous event loop implementations"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.6.2"
 
@@ -81,7 +81,7 @@ python-versions = ">=3.5"
 name = "atomicwrites"
 version = "1.4.0"
 description = "Atomic file writes."
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
@@ -89,7 +89,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 name = "attrs"
 version = "20.3.0"
 description = "Classes Without Boilerplate"
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
@@ -138,7 +138,7 @@ pycparser = "*"
 name = "chardet"
 version = "4.0.0"
 description = "Universal encoding detector for Python 2 and 3"
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
@@ -162,7 +162,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 name = "curlify"
 version = "2.2.1"
 description = "Library to convert python requests object to curl command."
-category = "main"
+category = "dev"
 optional = false
 python-versions = "*"
 
@@ -268,18 +268,18 @@ typing-extensions = ">=3.7.4,<4.0.0"
 
 [package.extras]
 gino = ["gino[starlette] (>=1.0.1,<2.0.0)", "SQLAlchemy (>=1.3.20,<2.0.0)", "sqlalchemy-stubs (>=0.4,<0.5)"]
-all = ["gino[starlette] (>=1.0.1,<2.0.0)", "SQLAlchemy (>=1.3.20,<2.0.0)", "sqlalchemy-stubs (>=0.4,<0.5)", "databases[sqlite,postgresql,mysql] (>=0.4.0,<0.5.0)", "orm (>=0.1.5,<0.2.0)", "tortoise-orm[asyncpg,aiosqlite,aiomysql] (>=0.16.18,<0.18.0)", "asyncpg (==0.23.0)", "ormar (>=0.10.5,<0.11.0)", "Django (<3.3.0)"]
+all = ["gino[starlette] (>=1.0.1,<2.0.0)", "SQLAlchemy (>=1.3.20,<2.0.0)", "sqlalchemy-stubs (>=0.4,<0.5)", "databases[sqlite,mysql,postgresql] (>=0.4.0,<0.5.0)", "orm (>=0.1.5,<0.2.0)", "tortoise-orm[asyncpg,aiomysql,aiosqlite] (>=0.16.18,<0.18.0)", "asyncpg (==0.23.0)", "ormar (>=0.10.5,<0.11.0)", "Django (<3.3.0)"]
 sqlalchemy = ["SQLAlchemy (>=1.3.20,<2.0.0)", "sqlalchemy-stubs (>=0.4,<0.5)"]
 asyncpg = ["SQLAlchemy (>=1.3.20,<2.0.0)", "asyncpg (==0.23.0)"]
-databases = ["databases[sqlite,postgresql,mysql] (>=0.4.0,<0.5.0)"]
-orm = ["databases[sqlite,postgresql,mysql] (>=0.4.0,<0.5.0)", "orm (>=0.1.5,<0.2.0)"]
-django = ["databases[sqlite,postgresql,mysql] (>=0.4.0,<0.5.0)", "Django (<3.3.0)"]
-tortoise = ["tortoise-orm[asyncpg,aiosqlite,aiomysql] (>=0.16.18,<0.18.0)"]
+databases = ["databases[sqlite,mysql,postgresql] (>=0.4.0,<0.5.0)"]
+orm = ["databases[sqlite,mysql,postgresql] (>=0.4.0,<0.5.0)", "orm (>=0.1.5,<0.2.0)"]
+django = ["databases[sqlite,mysql,postgresql] (>=0.4.0,<0.5.0)", "Django (<3.3.0)"]
+tortoise = ["tortoise-orm[asyncpg,aiomysql,aiosqlite] (>=0.16.18,<0.18.0)"]
 ormar = ["ormar (>=0.10.5,<0.11.0)"]
 
 [[package]]
 name = "fastapi-users"
-version = "6.1.0"
+version = "6.1.1"
 description = "Ready-to-use and customizable users management for FastAPI."
 category = "main"
 optional = false
@@ -288,11 +288,13 @@ python-versions = ">=3.7"
 [package.dependencies]
 Deprecated = ">=1.2.10,<2.0.0"
 email-validator = ">=1.1.0,<1.2"
-fastapi = ">=0.54.0,<0.66.0"
+fastapi = ">=0.65.2,<0.67.0"
+httpx-oauth = {version = ">=0.3,<0.4", optional = true, markers = "extra == \"oauth\""}
 makefun = ">=1.9.2,<1.12"
 passlib = {version = "1.7.4", extras = ["bcrypt"]}
 pyjwt = "2.1.0"
 python-multipart = "0.0.5"
+tortoise-orm = {version = ">=0.16.0,<0.18.0", optional = true, markers = "extra == \"tortoise-orm\""}
 
 [package.extras]
 mongodb = ["motor (>=2.2.0,<3.0.0)"]
@@ -305,7 +307,7 @@ tortoise-orm = ["tortoise-orm (>=0.16.0,<0.18.0)"]
 name = "graphql-core"
 version = "3.1.5"
 description = "GraphQL implementation for Python, a port of GraphQL.js, the JavaScript reference implementation for GraphQL."
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=3.6,<4"
 
@@ -321,7 +323,7 @@ python-versions = ">=3.6"
 name = "httpcore"
 version = "0.13.6"
 description = "A minimal low-level HTTP client."
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.6"
 
@@ -337,7 +339,7 @@ http2 = ["h2 (>=3,<5)"]
 name = "httpx"
 version = "0.18.2"
 description = "The next generation HTTP client."
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.6"
 
@@ -352,10 +354,22 @@ brotli = ["brotlicffi (>=1.0.0,<2.0.0)"]
 http2 = ["h2 (>=3.0.0,<4.0.0)"]
 
 [[package]]
+name = "httpx-oauth"
+version = "0.3.6"
+description = "Async OAuth client using HTTPX."
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[package.dependencies]
+httpx = ">=0.18,<0.19"
+typing-extensions = "*"
+
+[[package]]
 name = "hypothesis"
 version = "6.14.1"
 description = "A library for property-based testing"
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=3.6"
 
@@ -383,7 +397,7 @@ zoneinfo = ["importlib-resources (>=3.3.0)", "backports.zoneinfo (>=0.2.1)", "tz
 name = "hypothesis-graphql"
 version = "0.5.0"
 description = "Hypothesis strategies for GraphQL schemas and queries"
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=3.6,<4.0"
 
@@ -396,7 +410,7 @@ hypothesis = ">5.8.0"
 name = "hypothesis-jsonschema"
 version = "0.20.1"
 description = "Generate test data from JSON schemata with Hypothesis"
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=3.6"
 
@@ -424,7 +438,7 @@ python-versions = "*"
 name = "jsonschema"
 version = "3.2.0"
 description = "An implementation of JSON Schema validation for Python"
-category = "main"
+category = "dev"
 optional = false
 python-versions = "*"
 
@@ -441,7 +455,7 @@ format_nongpl = ["idna", "jsonpointer (>1.13)", "webcolors", "rfc3986-validator 
 name = "junit-xml"
 version = "1.9"
 description = "Creates JUnit XML test result documents that can be read by tools such as Jenkins"
-category = "main"
+category = "dev"
 optional = false
 python-versions = "*"
 
@@ -475,7 +489,7 @@ python-versions = "*"
 name = "more-itertools"
 version = "8.8.0"
 description = "More routines for operating on iterables, beyond itertools"
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=3.5"
 
@@ -483,7 +497,7 @@ python-versions = ">=3.5"
 name = "multidict"
 version = "5.1.0"
 description = "multidict implementation"
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=3.6"
 
@@ -491,7 +505,7 @@ python-versions = ">=3.6"
 name = "packaging"
 version = "20.9"
 description = "Core utilities for Python packages"
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
@@ -519,7 +533,7 @@ totp = ["cryptography"]
 name = "pluggy"
 version = "0.13.1"
 description = "plugin and hook calling mechanisms for python"
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
@@ -538,7 +552,7 @@ python-versions = "*"
 name = "py"
 version = "1.10.0"
 description = "library with cross-python path, ini-parsing, io, code, log facilities"
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
@@ -607,7 +621,7 @@ python-versions = ">=3.7,<4.0"
 name = "pyrsistent"
 version = "0.18.0"
 description = "Persistent/Functional/Immutable data structures"
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=3.6"
 
@@ -615,7 +629,7 @@ python-versions = ">=3.6"
 name = "pytest"
 version = "5.4.3"
 description = "pytest: simple powerful testing with Python"
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=3.5"
 
@@ -651,7 +665,7 @@ testing = ["coverage", "hypothesis (>=5.7.1)"]
 name = "pytest-subtests"
 version = "0.5.0"
 description = "unittest subTest() support and subtests fixture"
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=3.5"
 
@@ -692,7 +706,7 @@ python-versions = "*"
 name = "pyyaml"
 version = "5.4.1"
 description = "YAML parser and emitter for Python"
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*"
 
@@ -700,7 +714,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, !=3.5.*"
 name = "requests"
 version = "2.25.1"
 description = "Python HTTP for Humans."
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
@@ -718,7 +732,7 @@ socks = ["PySocks (>=1.5.6,!=1.5.7)", "win-inet-pton"]
 name = "rfc3986"
 version = "1.5.0"
 description = "Validating URI References per RFC 3986"
-category = "dev"
+category = "main"
 optional = false
 python-versions = "*"
 
@@ -732,7 +746,7 @@ idna2008 = ["idna"]
 name = "schemathesis"
 version = "3.9.3"
 description = "Property-based testing framework for Open API and GraphQL based apps"
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=3.6,<4.0"
 
@@ -767,7 +781,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*"
 name = "sniffio"
 version = "1.2.0"
 description = "Sniff out which async library your code is running under"
-category = "dev"
+category = "main"
 optional = false
 python-versions = ">=3.5"
 
@@ -775,7 +789,7 @@ python-versions = ">=3.5"
 name = "sortedcontainers"
 version = "2.4.0"
 description = "Sorted Containers -- Sorted List, Sorted Dict, Sorted Set"
-category = "main"
+category = "dev"
 optional = false
 python-versions = "*"
 
@@ -823,7 +837,7 @@ python-versions = "*"
 name = "urllib3"
 version = "1.26.5"
 description = "HTTP library with thread-safe connection pooling, file post, and more."
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*, <4"
 
@@ -852,7 +866,7 @@ standard = ["websockets (>=9.1)", "httptools (>=0.2.0,<0.3.0)", "watchgod (>=0.6
 name = "wcwidth"
 version = "0.2.5"
 description = "Measures the displayed width of unicode strings in a terminal"
-category = "main"
+category = "dev"
 optional = false
 python-versions = "*"
 
@@ -860,7 +874,7 @@ python-versions = "*"
 name = "werkzeug"
 version = "2.0.1"
 description = "The comprehensive WSGI web application library."
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=3.6"
 
@@ -890,7 +904,7 @@ python-versions = "*"
 name = "yarl"
 version = "1.6.3"
 description = "Yet another URL library"
-category = "main"
+category = "dev"
 optional = false
 python-versions = ">=3.6"
 
@@ -901,7 +915,7 @@ multidict = ">=4.0"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "bfcac305282dc2e26116e9b851afd9143853ae72b600ac27c7e9f3caf064a2b5"
+content-hash = "d083277cea8237d88e92bf4e38551f581a039ad26593faa97cf3d923a7134946"
 
 [metadata.files]
 aerich = [
@@ -1057,8 +1071,8 @@ fastapi-pagination = [
     {file = "fastapi_pagination-0.7.4-py3-none-any.whl", hash = "sha256:f01808f5a216b30afab58028bb0c8c19b60109c954951560945e8bd21c63cd5d"},
 ]
 fastapi-users = [
-    {file = "fastapi-users-6.1.0.tar.gz", hash = "sha256:5eee8db9d3ee5404f0c1d5d375e750db662b7bf52e02319d4d8e3c27350fcfda"},
-    {file = "fastapi_users-6.1.0-py3-none-any.whl", hash = "sha256:675c4c7029eacdd6fc0a95bd508f7adfb1766b99744a3d89ceb4dea536b05aa8"},
+    {file = "fastapi-users-6.1.1.tar.gz", hash = "sha256:6b4ae936bbe967bb41babc17a1eac8dedff3237153b96a661a11098ceec20a5c"},
+    {file = "fastapi_users-6.1.1-py3-none-any.whl", hash = "sha256:c185b57509a1b366c47719faffa5dc68e712449b0a48d242f1e6ecf24f2c6449"},
 ]
 graphql-core = [
     {file = "graphql-core-3.1.5.tar.gz", hash = "sha256:a755635d1d364a17e8d270347000722351aaa03f1ab7d280878aae82fc68b1f3"},
@@ -1075,6 +1089,10 @@ httpcore = [
 httpx = [
     {file = "httpx-0.18.2-py3-none-any.whl", hash = "sha256:979afafecb7d22a1d10340bafb403cf2cb75aff214426ff206521fc79d26408c"},
     {file = "httpx-0.18.2.tar.gz", hash = "sha256:9f99c15d33642d38bce8405df088c1c4cfd940284b4290cacbfb02e64f4877c6"},
+]
+httpx-oauth = [
+    {file = "httpx-oauth-0.3.6.tar.gz", hash = "sha256:57fa5a49780da6a31d68e8ef0c4da39d1f43ffe08595c12855e89f57ba0a5e3f"},
+    {file = "httpx_oauth-0.3.6-py3-none-any.whl", hash = "sha256:c1a47cbea40124e447a6114db1c719e6cbc2417e94be46424668bf61f60b7599"},
 ]
 hypothesis = [
     {file = "hypothesis-6.14.1-py3-none-any.whl", hash = "sha256:6dad44da8962cc7c13cdc28cf9b78c6779b5a0b0279a9baac427ae6d109f70e3"},

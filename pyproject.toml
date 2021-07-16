@@ -13,7 +13,7 @@ python-dotenv = "*"
 tortoise-orm = "0.17.4"
 asyncpg = "*"
 aiosqlite = "*"
-fastapi-users = "*"
+fastapi-users = {extras = ["tortoise-orm", "oauth"], version = "^6.1.1"}
 loguru = "^0.5.3"
 aerich = "^0.5.3"
 fastapi-pagination = "^0.7.4"
