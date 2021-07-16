@@ -25,3 +25,14 @@ def on_after_reset_password(user: UserDB, request: Request):
     """
     # TODO
     print(f"User {user.id} has reset their password.")
+
+
+def on_after_register(user: UserDB, request: Request):
+    """Send greetings email
+
+    Args:
+        user (UserDB): [description]
+        request (Request): [description]
+    """
+    # TODO send email
+    print(f"User {user.id} has registered.")

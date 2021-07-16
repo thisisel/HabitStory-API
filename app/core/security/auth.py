@@ -4,11 +4,11 @@ from fastapi_users.db.tortoise import TortoiseUserDatabase
 from fastapi_users.fastapi_users import FastAPIUsers
 
 from ..config import SECRET_KEY
-from . import User, UserCreate, UserDB, UserModel, UserUpdate
+from . import User, UserCreate, UserDB, UserModel, UserUpdate, OAuthAccountModel
 
 
 class UsersAuth:
-    user_db = TortoiseUserDatabase(UserDB, UserModel)
+    user_db = TortoiseUserDatabase(UserDB, UserModel, OAuthAccountModel)
     jwt_authentication = JWTAuthentication(
         secret=str(SECRET_KEY), lifetime_seconds=3600, tokenUrl="auth/jwt/login"
     )

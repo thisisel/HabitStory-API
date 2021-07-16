@@ -1,4 +1,4 @@
-from fastapi_users.db import TortoiseBaseUserModel
+from fastapi_users.db import TortoiseBaseUserModel, TortoiseBaseOAuthAccountModel
 from tortoise import fields, models
 from tortoise.exceptions import NoValuesFetched
 from tortoise.fields.base import CASCADE, RESTRICT, SET_NULL
@@ -7,7 +7,7 @@ from app.core.config import API_PREFIX
 
 class UserModel(TortoiseBaseUserModel):
 
-    username = fields.CharField(max_length=20, index=True, unique=True, null=False)
+    username = fields.CharField(max_length=20, index=True, unique=True, null=True)
     joined_date = fields.DatetimeField(auto_now_add=True, null=False)
 
     my_challenges: fields.ReverseRelation["ChallengeModel"]
@@ -20,6 +20,15 @@ class UserModel(TortoiseBaseUserModel):
     class PydanticMeta:
         exclude = ("hashed_password", "is_active", "is_superuser", "is_verified", "joined_date",)
 
+
+class OAuthAccountModel(TortoiseBaseOAuthAccountModel):
+    
+    user = fields.ForeignKeyField("models.UserModel", related_name="oauth_accounts")
+
+    class Meta:
+        app = "models"
+        table = "oauth_accounts"
+        
 
 class RewardModel(models.Model):
 
@@ -83,7 +92,16 @@ class ChallengeModel(models.Model):
     )
     participants: fields.ReverseRelation["JournalModel"]
 
+    def compute_participants_count(self) -> int:
+        """
+        Compute total number of participants in this journal
+        if q_set.prefetch_related or model.fetch_related
+        """
+        try:
+            return len(self.participants)
 
+        except NoValuesFetched:
+            return -1
     class Meta:
         app = "models"
         table = "challenges"
@@ -124,8 +142,6 @@ class JournalModel(models.Model):
     def journal_url(self) -> str:
         return f"{API_PREFIX}/profile/journals/{self.id}"
     
-    #def count_remains(self) -> int:
-    #     e = await self.challenge.
 
     class Meta:
         app = "models"
@@ -145,6 +161,8 @@ class PageModel(models.Model):
     submitted = fields.DatetimeField(auto_now_add=True, index=True)
     last_modified = fields.DatetimeField(auto_now=True)
     note = fields.TextField(null=True)
+
+    #TODO story piece fk
 
     journal: fields.ForeignKeyRelation[JournalModel] = fields.ForeignKeyField(
         "models.JournalModel", related_name="pages", on_delete=CASCADE

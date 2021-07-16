@@ -16,13 +16,9 @@ from .common_models import ApiBaseResponse
 #   defines optional basic fields and validation
 # originally inherited a method that turns the instance into dict, excluding
 #  everything that is unset
-class User(models.BaseUser):
+class User(models.BaseUser, models.BaseOAuthAccountMixin):
     username: Optional[str]
     joined_date: Optional[datetime] = None
-
-    # @validator("username", always=True)
-    # def defult_username(cls, v):
-    #     return "user"+str(super().id)[0:4] if super().id else v
 
     @validator("joined_date", always=True)
     def defult_joindate(cls, v):

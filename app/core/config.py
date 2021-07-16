@@ -32,6 +32,9 @@ ALLOWED_HOSTS: List[str] = config(
     default="",
 )
 
+GOOGLE_CLIENT_ID: str = config("GOOGLE_CLIENT_ID")
+GOOGLE_CLIENT_SECRET: str = config("GOOGLE_CLIENT_SECRET")
+
 
 class DevelopmentSettings(BaseSettings):
 

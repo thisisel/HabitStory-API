@@ -3,7 +3,8 @@ from app.core.security.auth import (
     UsersAuth,
     SECRET_KEY,
 )
-from app.core.security.utils import on_after_forgot_password, on_after_reset_password
+from app.core.security.oauth2 import google_oauth_client
+from app.core.security.utils import on_after_forgot_password, on_after_reset_password, on_after_register
 
 
 router = APIRouter()
@@ -31,3 +32,8 @@ router.include_router(
     ),
     tags=["auth"],
 )
+
+google_oauth_router = fastapi_users.get_oauth_router(
+    google_oauth_client, str(SECRET_KEY), after_register=on_after_register
+)
+router.include_router(google_oauth_router, prefix="/google", tags=["auth"])
