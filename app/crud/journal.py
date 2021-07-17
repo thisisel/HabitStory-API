@@ -72,6 +72,10 @@ class RetriveJournal:
             raise NotFound(category=JOURNAL_404)
 
         page_count = journal.count_pages()
+        
+        if(page_count == 0):
+            return Dto(status=True, data=JournalPageBundle(journal=journal, page=None))
+        
         last_page = await RetrivePage.get_latest_page(journal_id=journal_id, author_id=journal.author.id)
         
         challenge_duration = journal.challenge.duration

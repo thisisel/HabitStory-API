@@ -1,7 +1,11 @@
 from app.db.models import PageModel
 
 
-def evaluate_streak(new_page: PageModel, last_page: PageModel, current_streak: int)-> int:
+def evaluate_streak(current_streak: int, new_page: PageModel, last_page: PageModel)-> int:
+    
+    if last_page is None:
+        return 1
+        
     delta = new_page.submitted - last_page.submitted
     new_streak = current_streak
     

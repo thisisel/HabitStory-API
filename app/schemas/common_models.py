@@ -24,7 +24,7 @@ class CreateUpdateDictModel(BaseModel):
 
 class JournalPageBundle(BaseModel):
     journal : JournalModel
-    page: PageModel
+    page: PageModel = None
 
     class Config:
         arbitrary_types_allowed = True
