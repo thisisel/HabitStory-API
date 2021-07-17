@@ -19,7 +19,7 @@ class UserModel(TortoiseBaseUserModel):
         table = "users"
 
     class PydanticMeta:
-        exclude = ("hashed_password", "is_active", "is_superuser", "is_verified", "joined_date",)
+        exclude = ("hashed_password", "is_active", "is_superuser", "is_verified", "joined_date","oauth_accounts")
 
 
 class OAuthAccountModel(TortoiseBaseOAuthAccountModel):
