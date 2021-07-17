@@ -4,7 +4,7 @@ from tortoise.query_utils import Prefetch, Q
 from tortoise.queryset import QuerySet, QuerySetSingle
 from app.db.models import JournalModel, PageModel
 from app.schemas.page import AddPage
-from app.api.errors import NotFound, InternalError, PAGE_404
+from app.api.errors import NotFound, InternalError, PAGE_404, JOURNAL_404
 
 
 class RetrivePage:
@@ -41,6 +41,10 @@ class RetrivePage:
 
     @classmethod
     async def fetch_all_journal_pages(cls, journal_id: int) -> QuerySet[PageModel]:
+       
+        if not (await JournalModel.filter(id=journal_id).exists()):
+            raise NotFound(category=JOURNAL_404)
+
         return PageModel.filter(journal_id=journal_id).prefetch_related(
             Prefetch(relation="journal", queryset=JournalModel.all().only("id", "author_id", "challenge_id"))
         ).all()
