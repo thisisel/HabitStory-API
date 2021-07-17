@@ -64,6 +64,10 @@ class RetriveJournal:
                 Prefetch(
                     relation="author",
                     queryset=UserModel.all().only("id", "username")
+                ),
+                Prefetch(
+                    relation="reward",
+                    queryset=StoryReward.all().only("id", "title", "saved_pieces_count")
                 )
             )
         )

@@ -52,6 +52,7 @@ async def add_page(
 ):
 
     journal_stats = await RetriveJournal.check_journal_is_over(journal_id=id)
+    journal_obj = journal_stats.data.journal
 
     new_page_obj = await CreatePage.add_new_page(
         data=body, journal_id=id, author_id=user.id
@@ -60,16 +61,30 @@ async def add_page(
     streak = evaluate_streak(
         new_page=new_page_obj,
         last_page=journal_stats.data.page,
-        current_streak=journal_stats.data.journal.streak,
+        current_streak=journal_obj.streak,
     )
     up_data = UpdateJournalAfterNewPage(streak=streak, last_modified=datetime.now())
 
     if journal_stats.status:
-        up_data.finished = datetime
+        up_data.finished = datetime.now()
 
-    await UpdateJournal.update_journal(journal_obj=journal_stats.data.journal, data=up_data)
+    await UpdateJournal.update_journal(journal_obj=journal_obj, data=up_data)
+    
+    ###
 
-    return new_page_obj
+    new_page_pydantic = await SingleJournalPage.from_tortoise_orm(new_page_obj)
+    
+    pieces = await RetrievePieces.fetch_pieces(story_id=journal_obj.reward.id , page_num=new_page_obj.page_num, duration=journal_obj.challenge.duration)
+    merged_pieces = await StoryManager.merge_pieces(pieces=pieces)
+    new_page_pydantic.story = merged_pieces
+    
+    new_page_response = SingleJournalPageResponse(
+        status=True,
+        message="New Page Added",
+        data=new_page_pydantic
+    )
+
+    return JSONResponse(status_code=201, content=jsonable_encoder(new_page_response))
 
 
 # TODO story
