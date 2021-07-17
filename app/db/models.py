@@ -34,7 +34,7 @@ class OAuthAccountModel(TortoiseBaseOAuthAccountModel):
 class RewardModel(models.Model):
 
     id = fields.IntField(pk=True)
-    tag = fields.TextField()
+    tag = fields.TextField(null=True)
 
     journals: fields.ReverseRelation["JournalModel"]
 
@@ -43,23 +43,24 @@ class RewardModel(models.Model):
         table = "rewards"
         # abstract = True
     
-    class PydanticMeta:
-        exclude=("content",)
 
 
 class StoryReward(RewardModel):
 
-    author = fields.CharField(max_length=100)
-    title = fields.CharField(max_length=100)
+    author = fields.CharField(max_length=100, null=True)
+    title = fields.CharField(max_length=100, null=True)
     word_count = fields.IntField(null=True, index=True)
+    saved_pieces_count = fields.IntField(null=True, index=True)
+    source_url = fields.TextField(null=True)
 
     pieces: fields.ReverseRelation["StoryPieceModel"]
+
+    def __str__(self):
+        return f"<id :: {self.id} , title :: {self.title}>"
+
     class Meta:
         app = "models"
         table = "stories"
-
-    class PydanticMeta:
-        exclude=("content",)
 
 
 class StoryPieceModel(models.Model):
@@ -71,8 +72,12 @@ class StoryPieceModel(models.Model):
 
 
     story: fields.ForeignKeyRelation[StoryReward] = fields.ForeignKeyField(
-        "models.StoryReward", related_name="pieces", on_delete=CASCADE
+        "models.StoryReward", related_name="pieces", on_delete=CASCADE, null=True
     ) 
+
+    def __str__(self):
+        return f"<id :: {self.id} , piece_num :: {self.piece_num}>"
+
     class Meta:
         app = "models"
         table = "story_pieces"
