@@ -1,11 +1,190 @@
-click==7.1.2
-fastapi==0.65.1
-h11==0.12.0
-mongoengine==0.23.1
-motor==2.4.0
-pydantic==1.8.2
-pymongo==3.11.4
-python-dotenv==0.17.1
-starlette==0.14.2
-typing-extensions==3.10.0.0
-uvicorn==0.13.4
+app==0.1.0  # app
+  tortoise-orm==0.17.4  # tortoise-orm==0.17.4
+    pytz==2021.1  # pytz
+    iso8601==0.1.14  # iso8601<0.2.0,>=0.1.13
+    pypika-tortoise==0.1.1  # pypika-tortoise<0.2.0,>=0.1.1
+    aiosqlite==0.16.1  # aiosqlite<0.17.0,>=0.16.0
+      typing-extensions==3.10.0.0  # typing_extensions>=3.7.2
+  aerich==0.5.3  # aerich<0.6.0,>=0.5.3
+    dictdiffer==0.8.1  # dictdiffer
+    ddlparse==1.9.0  # ddlparse
+      pyparsing==2.4.7  # pyparsing
+    click==7.1.2  # click
+    tortoise-orm==0.17.4  # tortoise-orm
+      pytz==2021.1  # pytz
+      iso8601==0.1.14  # iso8601<0.2.0,>=0.1.13
+      pypika-tortoise==0.1.1  # pypika-tortoise<0.2.0,>=0.1.1
+      aiosqlite==0.16.1  # aiosqlite<0.17.0,>=0.16.0
+        typing-extensions==3.10.0.0  # typing_extensions>=3.7.2
+    pydantic==1.8.2  # pydantic
+      typing-extensions==3.10.0.0  # typing-extensions>=3.7.4.3
+  fastapi==0.65.2  # fastapi
+    starlette==0.14.2  # starlette==0.14.2
+    pydantic==1.8.2  # pydantic!=1.7,!=1.7.1,!=1.7.2,!=1.7.3,!=1.8,!=1.8.1,<2.0.0,>=1.6.2
+      typing-extensions==3.10.0.0  # typing-extensions>=3.7.4.3
+  fastapi-pagination==0.7.4  # fastapi-pagination<0.8.0,>=0.7.4
+    typing-extensions==3.10.0.0  # typing-extensions<4.0.0,>=3.7.4
+    pydantic==1.8.2  # pydantic<2.0.0,>=1.7.2
+      typing-extensions==3.10.0.0  # typing-extensions>=3.7.4.3
+    fastapi==0.65.2  # fastapi>=0.61.2
+      starlette==0.14.2  # starlette==0.14.2
+      pydantic==1.8.2  # pydantic!=1.7,!=1.7.1,!=1.7.2,!=1.7.3,!=1.8,!=1.8.1,<2.0.0,>=1.6.2
+        typing-extensions==3.10.0.0  # typing-extensions>=3.7.4.3
+  loguru==0.5.3  # loguru<0.6.0,>=0.5.3
+  asyncpg==0.23.0  # asyncpg
+  uvicorn==0.14.0  # uvicorn
+    click==7.1.2  # click>=7.*
+    h11==0.12.0  # h11>=0.8
+    asgiref==3.3.4  # asgiref>=3.3.4
+  pydantic==1.8.2  # pydantic
+    typing-extensions==3.10.0.0  # typing-extensions>=3.7.4.3
+  python-dotenv==0.17.1  # python-dotenv
+  fastapi-users==6.1.1  # fastapi-users
+    fastapi==0.65.2  # fastapi<0.67.0,>=0.65.2
+      starlette==0.14.2  # starlette==0.14.2
+      pydantic==1.8.2  # pydantic!=1.7,!=1.7.1,!=1.7.2,!=1.7.3,!=1.8,!=1.8.1,<2.0.0,>=1.6.2
+        typing-extensions==3.10.0.0  # typing-extensions>=3.7.4.3
+    Deprecated==1.2.12  # Deprecated<2.0.0,>=1.2.10
+      wrapt==1.12.1  # wrapt<2,>=1.10
+    python-multipart==0.0.5  # python-multipart==0.0.5
+      six==1.16.0  # six>=1.4.0
+    PyJWT==2.1.0  # pyjwt==2.1.0
+    makefun==1.11.3  # makefun<1.12,>=1.9.2
+    passlib==1.7.4  # passlib[bcrypt]==1.7.4
+    email-validator==1.1.3  # email-validator<1.2,>=1.1.0
+      idna==2.10  # idna>=2.0.0
+      dnspython==2.1.0  # dnspython>=1.15.0
+  aiosqlite==0.16.1  # aiosqlite
+    typing-extensions==3.10.0.0  # typing_extensions>=3.7.2
+asynctest==0.13.0  # asynctest
+bcrypt==3.2.0  # bcrypt
+  cffi==1.14.5  # cffi>=1.1
+    pycparser==2.20  # pycparser
+  six==1.16.0  # six>=1.4.1
+deptree==0.0.10  # deptree
+  importlib-metadata==4.6.1  # importlib-metadata
+    zipp==3.5.0  # zipp>=0.5
+  setuptools==57.0.0  # setuptools
+fastapi-mail==0.4.0  # fastapi-mail
+  blinker==1.4  # blinker>=1.4
+  Jinja2==3.0.1  # jinja2>=2.11.2
+    MarkupSafe==2.0.1  # MarkupSafe>=2.0
+  aioredis==1.3.1  # aioredis>=1.3.1
+    async-timeout==3.0.1  # async-timeout
+    hiredis==2.0.0  # hiredis
+  fakeredis==1.5.2  # fakeredis>=1.4.5
+    six==1.16.0  # six>=1.12
+    redis==3.5.3  # redis<3.6.0
+    sortedcontainers==2.4.0  # sortedcontainers
+  httpx==0.18.2  # httpx>=0.16.1
+    rfc3986==1.5.0  # rfc3986[idna2008]<2,>=1.3
+    certifi==2021.5.30  # certifi
+    httpcore==0.13.6  # httpcore<0.14.0,>=0.13.3
+      anyio==3.2.0  # anyio==3.*
+        idna==2.10  # idna>=2.8
+        sniffio==1.2.0  # sniffio>=1.1
+      h11==0.12.0  # h11<0.13,>=0.11
+      sniffio==1.2.0  # sniffio==1.*
+    sniffio==1.2.0  # sniffio
+  python-multipart==0.0.5  # python-multipart>=0.0.5
+    six==1.16.0  # six>=1.4.0
+  email-validator==1.1.3  # email-validator>=1.1.1
+    idna==2.10  # idna>=2.0.0
+    dnspython==2.1.0  # dnspython>=1.15.0
+  pydantic==1.8.2  # pydantic>=1.7.1
+    typing-extensions==3.10.0.0  # typing-extensions>=3.7.4.3
+  aiosmtplib==1.1.6  # aiosmtplib>=1.1.5
+  fastapi==0.65.2  # fastapi>=0.61.2
+    starlette==0.14.2  # starlette==0.14.2
+    pydantic==1.8.2  # pydantic!=1.7,!=1.7.1,!=1.7.2,!=1.7.3,!=1.8,!=1.8.1,<2.0.0,>=1.6.2
+      typing-extensions==3.10.0.0  # typing-extensions>=3.7.4.3
+httpx-oauth==0.3.6  # httpx-oauth
+  httpx==0.18.2  # httpx<0.19,>=0.18
+    rfc3986==1.5.0  # rfc3986[idna2008]<2,>=1.3
+    certifi==2021.5.30  # certifi
+    httpcore==0.13.6  # httpcore<0.14.0,>=0.13.3
+      anyio==3.2.0  # anyio==3.*
+        idna==2.10  # idna>=2.8
+        sniffio==1.2.0  # sniffio>=1.1
+      h11==0.12.0  # h11<0.13,>=0.11
+      sniffio==1.2.0  # sniffio==1.*
+    sniffio==1.2.0  # sniffio
+  typing-extensions==3.10.0.0  # typing-extensions
+pip==21.1.2  # pip
+pip-chill==1.0.1  # pip-chill
+pprintpp==0.4.0  # pprintpp
+pyflakes==2.3.1  # pyflakes
+pytest-asyncio==0.15.1  # pytest-asyncio
+  pytest==5.4.3  # pytest>=5.4.0
+    wcwidth==0.2.5  # wcwidth
+    more-itertools==8.8.0  # more-itertools>=4.0.0
+    py==1.10.0  # py>=1.5.0
+    packaging==20.9  # packaging
+      pyparsing==2.4.7  # pyparsing>=2.0.2
+    pluggy==0.13.1  # pluggy<1.0,>=0.12
+    attrs==20.3.0  # attrs>=17.4.0
+schemathesis==3.9.3  # schemathesis
+  starlette==0.14.2  # starlette<1,>=0.13
+  click==7.1.2  # click<8.0,>=7.0
+  hypothesis==6.14.1  # hypothesis<7.0,>=6.13.3
+    sortedcontainers==2.4.0  # sortedcontainers<3.0.0,>=2.1.0
+    attrs==20.3.0  # attrs>=19.2.0
+  junit-xml==1.9  # junit-xml<2.0,>=1.9
+    six==1.16.0  # six
+  jsonschema==3.2.0  # jsonschema<4.0.0,>=3.0.0
+    pyrsistent==0.18.0  # pyrsistent>=0.14.0
+    six==1.16.0  # six>=1.11.0
+    setuptools==57.0.0  # setuptools
+    attrs==20.3.0  # attrs>=17.4.0
+  yarl==1.6.3  # yarl<2.0,>=1.5
+    idna==2.10  # idna>=2.0
+    multidict==5.1.0  # multidict>=4.0
+  hypothesis-graphql==0.5.0  # hypothesis_graphql>=0.5.0
+    graphql-core==3.1.5  # graphql-core<4.0.0,>=3.1.0
+    hypothesis==6.14.1  # hypothesis>5.8.0
+      sortedcontainers==2.4.0  # sortedcontainers<3.0.0,>=2.1.0
+      attrs==20.3.0  # attrs>=19.2.0
+    attrs==20.3.0  # attrs<21.0.0,>=20.3.0
+  pytest==5.4.3  # pytest>4.6.4
+    wcwidth==0.2.5  # wcwidth
+    more-itertools==8.8.0  # more-itertools>=4.0.0
+    py==1.10.0  # py>=1.5.0
+    packaging==20.9  # packaging
+      pyparsing==2.4.7  # pyparsing>=2.0.2
+    pluggy==0.13.1  # pluggy<1.0,>=0.12
+    attrs==20.3.0  # attrs>=17.4.0
+  curlify==2.2.1  # curlify<3.0.0,>=2.2.1
+    requests==2.25.1  # requests
+      idna==2.10  # idna<3,>=2.5
+      urllib3==1.26.5  # urllib3<1.27,>=1.21.1
+      certifi==2021.5.30  # certifi>=2017.4.17
+      chardet==4.0.0  # chardet<5,>=3.0.2
+  colorama==0.4.4  # colorama<0.5.0,>=0.4.4
+  PyYAML==5.4.1  # pyyaml<6.0,>=5.1
+  attrs==20.3.0  # attrs>=19.2
+  typing-extensions==3.10.0.0  # typing-extensions<4.0.0,>=3.7.4
+  Werkzeug==2.0.1  # werkzeug>0.16.0
+  pytest-subtests==0.5.0  # pytest-subtests<1.0,>=0.2.1
+    pytest==5.4.3  # pytest>=5.3.0
+      wcwidth==0.2.5  # wcwidth
+      more-itertools==8.8.0  # more-itertools>=4.0.0
+      py==1.10.0  # py>=1.5.0
+      packaging==20.9  # packaging
+        pyparsing==2.4.7  # pyparsing>=2.0.2
+      pluggy==0.13.1  # pluggy<1.0,>=0.12
+      attrs==20.3.0  # attrs>=17.4.0
+  requests==2.25.1  # requests<3.0,>=2.22
+    idna==2.10  # idna<3,>=2.5
+    urllib3==1.26.5  # urllib3<1.27,>=1.21.1
+    certifi==2021.5.30  # certifi>=2017.4.17
+    chardet==4.0.0  # chardet<5,>=3.0.2
+  hypothesis-jsonschema==0.20.1  # hypothesis_jsonschema>=0.20.1
+    hypothesis==6.14.1  # hypothesis>=5.3.0
+      sortedcontainers==2.4.0  # sortedcontainers<3.0.0,>=2.1.0
+      attrs==20.3.0  # attrs>=19.2.0
+    jsonschema==3.2.0  # jsonschema>=3.0.2
+      pyrsistent==0.18.0  # pyrsistent>=0.14.0
+      six==1.16.0  # six>=1.11.0
+      setuptools==57.0.0  # setuptools
+      attrs==20.3.0  # attrs>=17.4.0
+wheel==0.36.2  # wheel

@@ -1,3 +1,7 @@
+from fastapi.encoders import jsonable_encoder
+from starlette.responses import JSONResponse
+from app.services.story import StoryManager
+from app.crud.piece import RetrievePieces
 from tortoise.query_utils import Q
 from app.utils.journal import evaluate_streak
 from datetime import datetime
@@ -32,9 +36,9 @@ async def retrive_journal_pages(
     params: Params = Depends(),
     user: UserDB = Depends(current_active_user),
 ):
-    # pages_qset = await RetrivePage.fetch_all_journal_pages(journal_id=id)
+    pages_qset = await RetrivePage.fetch_all_journal_pages(journal_id=id)
     filters = page_filters.q_filters_pruned.union({Q(journal__author=user.id)})
-    pages_qset = await RetrivePage.fetch_filtered_journal_pages(journal_id=id, q_filters=filters)
+    # pages_qset = await RetrivePage.fetch_filtered_journal_pages(journal_id=id, q_filters=filters)
 
     return paginate(await PageInList_Pydantic.from_queryset(pages_qset), params=params)
 
@@ -57,6 +61,8 @@ async def add_page(
     new_page_obj = await CreatePage.add_new_page(
         data=body, journal_id=id, author_id=user.id
     )
+
+    ### update journal
 
     streak = evaluate_streak(
         new_page=new_page_obj,

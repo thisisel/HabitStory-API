@@ -21,7 +21,7 @@ router.include_router(
     tags=["auth"],
 )
 router.include_router(
-    fastapi_users.get_register_router(),
+    fastapi_users.get_register_router(after_register=on_after_register),
     tags=["auth"],
 )
 router.include_router(

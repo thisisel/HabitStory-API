@@ -89,6 +89,18 @@ class ProductionSettings(BaseSettings):
     class Config:
         env_file = ".env"
 
+class MailCredentials(BaseSettings):
+    mail_username: str
+    mail_password: str
+    mail_from: str
+    mail_from_name: str = "HabitStoryTeam"
+    mail_port: int = 587
+    mail_server: str = "smtp.gmail.com"
+
+    class Config:
+        env_file = '.env'
+        env_file_encoding = 'utf-8'
+        
 
 setting_by_name = dict(
     development=DevelopmentSettings(),

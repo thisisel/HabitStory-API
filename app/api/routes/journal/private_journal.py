@@ -5,6 +5,7 @@ from app.crud.journal import CreateJournal, DeleteJournal, RetriveJournal, Updat
 from app.crud.challenge import CreateChallenge
 
 from app.api.routes import page
+from app.schemas import challenge
 from app.schemas.common_models import ApiErrorResponse
 from app.schemas.journal import (
     NewJournalCreatedResponse,
@@ -69,6 +70,7 @@ async def create_journal(
     new_journal_obj = await CreateJournal.create_journal(
         user_id=new_challenge_obj.created_by_id,
         challenge_id=new_challenge_obj.id,
+        challenge_duration=new_challenge_obj.duration,
         is_public=body.dict().get("is_public", False),
     )
 

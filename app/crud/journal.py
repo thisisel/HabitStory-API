@@ -1,9 +1,9 @@
+from app.services.story import StoryManager
 from app.crud.page import RetrivePage
-from app.api.errors.error_categories import JOURNAL_404
 from app.schemas.common_models import Dto, JournalPageBundle
 from app.schemas.journal import JournalBase_Pydantic, UpdateJournalAfterNewPage, UpdateJournal_Pydantic
 from app.core.log.current_logger import CurrentLogger
-from app.api.errors import NotFound, REWARD_404, internal_error, NotAllowed, JRNL_OVER_405, InternalError
+from app.api.errors import NotFound, REWARD_404, NotAllowed, JRNL_OVER_405, InternalError, JOURNAL_404
 from typing import Set, Union
 from tortoise.query_utils import Prefetch, Q
 from app.crud.reward import RetriveReward
@@ -38,7 +38,7 @@ class RetriveJournal:
         except KeyError as ke:
 
             CurrentLogger.get_logger().error(ke)
-            raise internal_error()
+            raise InternalError()
 
     #TODO rename fetch_user_single_journal
     @classmethod
@@ -108,21 +108,30 @@ class CreateJournal:
         cls,
         user_id: int,
         challenge_id: int,
+        challenge_duration: int,
         is_public: bool = False,
         reward_model: RewardModel = StoryReward,
     ) -> JournalModel:
 
         # TODO random reward
-        reward_qset = await RetriveReward.fetch_random_reward(reward_model=StoryReward)
-        if (reward_obj := await reward_qset) is None:
+        # reward_qset = await RetriveReward.fetch_random_reward(reward_model=StoryReward)
+        story = await StoryManager.assign_story(duration=challenge_duration)
+        if not story:
+            raise InternalError()
 
-            raise NotFound(category=REWARD_404)
+        # story_qset = await RetrieveStory.fetch_random_story()
+        
+        
+        # if (reward_obj := await reward_qset) is None:
+
+        #     raise NotFound(category=REWARD_404)
 
         return await JournalModel.create(
             author_id=user_id,
             challenge_id=challenge_id,
             is_public=is_public,
-            reward_id=reward_obj.id,
+            # reward_id=reward_obj.id,
+            reward_id=story.id
         )
 
 class UpdateJournal:

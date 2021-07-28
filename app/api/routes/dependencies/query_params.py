@@ -4,7 +4,7 @@ from app.core.log.current_logger import CurrentLogger
 from fastapi import Query, Request
 from tortoise.query_utils import Q
 
-
+#TODO make class BaseFilter for inheritance
 class PersonalJournalFilters:
     def __init__(
         self,

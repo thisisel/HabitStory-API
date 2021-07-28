@@ -1,6 +1,6 @@
 FROM python:3.8-slim-buster
 
-WORKDIR /backend
+WORKDIR /usr/src/server
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONBUFFERED 1
@@ -12,8 +12,8 @@ RUN apt-get update \
 
 # install python dependencies
 RUN pip install --upgrade pip
-COPY ./requirements.txt /backend/requirements.txt
+COPY ./requirements.txt .
 RUN pip install -r requirements.txt
 
-COPY . /backend
+COPY . .
 

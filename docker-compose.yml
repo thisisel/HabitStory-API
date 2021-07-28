@@ -1,29 +1,68 @@
 version: '3.8'
 
 services:
-  server:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
+  web:
+    build: ./backend
+    command: |
+      bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; uvicorn app.main:app --reload --workers 1 --host 0.0.0.0 --port 8000'
     volumes:
-      - ./backend/:/backend/
-    command: uvicorn run:app --reload --workers 1 --host 0.0.0.0 --port 8000
-    
-    env_file:
-      - ./backend/app/core/.env
+      - ./backend/:/usr/src/server/
     ports:
-      - 8000:8000
+      - 8002:8000
+    environment:
+      - FASTAPI_ENV=development
+      
+      - DB_URL=postgres://admin:admin_pass@db/habit_tracker
+      - DB_ENGINE=postgres
+      - DB_NAME=habit_tracker
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USERNAME=admin
+      - DB_PASS=admin_pass
+      
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
     depends_on:
-      - db
-
+        - redis
+  
   db:
     image: postgres:13-alpine
     volumes:
       - postgres_data:/var/lib/postgresql/data/
-    env_file:
-      - ./backend/app/core/.env
+    expose:
+      - 5432
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin_pass
+      - POSTGRES_DB=habit_tracker
+
+      worker:
+        build: ./project
+        command: celery worker --app=worker.celery --loglevel=info --logfile=logs/celery.log
+        volumes:
+          - ./project:/usr/src/app
+        environment:
+          - CELERY_BROKER_URL=redis://redis:6379/0
+          - CELERY_RESULT_BACKEND=redis://redis:6379/0
+        depends_on:
+          - web
+          - redis
+    
+  redis:
+    image: redis:6-alpine
+    
+  dashboard:
+    build: ./backend
+    command:  flower --app=worker.celery --port=5555 --broker=redis://redis:6379/0
     ports:
-      - 5432:5432
+      - 5556:5555
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - CELERY_RESULT_BACKEND=redis://redis:6379/0
+    depends_on:
+      - web
+      - redis
+      - worker
 
 volumes:
-    postgres_data:
+  postgres_data:
